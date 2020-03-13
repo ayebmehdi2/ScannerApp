@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.DefaultCompany.ARKIDS.UnityPlayerActivity;
 import com.bumptech.glide.Glide;
 import com.example.scanner.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +50,14 @@ public class Home extends AppCompatActivity {
         binding.rec.setAdapter(recycleView);
 
           */
+
+         binding.avatar.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent i = new Intent(Home.this, UnityPlayerActivity.class);
+                 startActivity(i);
+             }
+         });
 
         binding.myscore.setOnClickListener(new View.OnClickListener() {
             @Override

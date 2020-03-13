@@ -56,6 +56,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.3'
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation project(path: ':kid')
 
 
 }

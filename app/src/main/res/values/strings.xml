@@ -13,6 +13,7 @@
     <string name="faire">faire</string>
 
     <string-array name="tunisie">
+        <item>Choisissez adress</item>
         <item>Ariana</item>
         <item>Béja</item>
         <item>Ben Arous</item>

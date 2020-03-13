@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -94,12 +95,12 @@ public class ActivityProfile extends AppCompatActivity implements View.OnClickLi
         binding.spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                reference.child("USERS").child(uid).child("location").setValue(String.valueOf(position));
+                reference.child("USERS").child(uid).child("location").setValue(binding.spinner1.getItemAtPosition(position).toString());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                reference.child("USERS").child(uid).child("location").setValue("1");
+                reference.child("USERS").child(uid).child("location").setValue("Choisissez adress");
             }
         });
 
@@ -135,13 +136,25 @@ public class ActivityProfile extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    //private method of your class
+    private int getIndex(Spinner spinner, String myString){
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     public void updateUi(){
         binding.nameT.setText(nom);
         binding.prenomT.setText(prenom);
         binding.emailT.setText(email);
         binding.teleT.setText(tele);
         binding.dateT.setText(date);
-        binding.spinner1.setSelection(Integer.parseInt(adress));
+        binding.spinner1.setSelection(getIndex(binding.spinner1, adress));
+
         try {
             Glide.with(ActivityProfile.this).load(photo).into(binding.photo);
         }catch (Exception e){ }

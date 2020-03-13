@@ -1,5 +1,6 @@
 package com.example.scanner;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,6 +34,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 public class CompleteCompte extends AppCompatActivity {
@@ -143,7 +147,7 @@ public class CompleteCompte extends AppCompatActivity {
         String email = binding.email.getText().toString();
         String phone = binding.tele.getText().toString();
         String date = binding.dateBirth.getText().toString();
-        String adress = String.valueOf(binding.spinner1.getSelectedItemPosition());
+        String adress = binding.spinner1.getSelectedItem().toString();
 
         if (email.length()>0){
             reference.child("USERS").child(uid).child("email").setValue(email);
@@ -166,9 +170,8 @@ public class CompleteCompte extends AppCompatActivity {
         if (adress.length()>0){
             reference.child("USERS").child(uid).child("location").setValue(adress);
         } else {
-            reference.child("USERS").child(uid).child("location").setValue("1");
+            reference.child("USERS").child(uid).child("location").setValue("Choisissez adress");
         }
-
 
         reference.child("USERS").child(uid).child("score").setValue(0);
 
@@ -183,7 +186,9 @@ public class CompleteCompte extends AppCompatActivity {
         reference.child("USERS").child(uid).child("gift2").setValue(0);
         reference.child("USERS").child(uid).child("gift3").setValue(0);
 
-        reference.child("USERS").child(uid).child("dateInsc").setValue(System.currentTimeMillis());
+        @SuppressLint("SimpleDateFormat") DateFormat simple = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        Date result = new Date(System.currentTimeMillis());
+        reference.child("USERS").child(uid).child("dateInsc").setValue(simple.format(result));
     }
 
     private void uploadImage(String filePath) {
